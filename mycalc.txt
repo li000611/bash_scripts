@@ -1,0 +1,54 @@
+
+#!/bin/bash
+
+#Assignment number: Lab 10
+#Student Name & NO Min Li 
+#Lab section number: 322
+#File name: mycalc
+#Date: 4 Dec. 2019 
+#Description: This script file perform basic calculations.
+
+choice=c
+
+function calc(){
+echo " $1 $2 $3 equals $(($1$2$3)) "
+sleep 3
+clear
+}
+
+if [ $# -eq 3 ]
+then
+calc "$1" "$2" "$3"
+
+elif [ $# -eq 0 ]
+then
+chioce=c
+while [ $chioce != "x" ] || [ $chioce != "X" ]
+echo "Welcome to base calculator !"
+read -p "(C) Calculation
+         (X) Exit " chioce
+do 
+clear
+case $chioce in
+c|C) read -p "Please enter first integer number:" fn
+     clear
+     read -p "Please choose operator: 
+         (A)Add
+         (B)Subtract " sn
+     if [ $sn == a ] || [ $sn == A ]
+        then
+        clear
+        s="+"
+     elif [ $sn == b ] || [ $sn == B ]
+        then
+        clear
+        s="-"
+      fi
+      read -p "Please enter an integer number: " ln 
+      clear
+      calc "$fn" "$s" "$ln" ;;
+x|X)
+ exit;;
+ esac
+done
+fi
