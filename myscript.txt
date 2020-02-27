@@ -1,0 +1,67 @@
+#!/bin/bash
+
+#Assignment name: Lab8
+#Student name: Min Li
+#Student number: 040930563
+#Lab section: 322
+#Name of the script file: myscript
+#Date: 2019-11-22
+#Description of the script file: It contains a menu that gives the user a choice of the five items labeled A-F and Q, and a prompt asking for what the user's chocie is.
+
+choice=n
+while [ $choice != "Q" ] && [ $choice != "q" ]
+do
+read -p "Please choose one of the items:
+A) Create a user account
+B) Delete a user account
+C) Change supplementary group for a user account
+D) Change initial group for a user account
+E) Change default login shell for a user account
+F) Change account expiration date for a user account
+Q) Quit " choice
+
+echo "You enter $choice"
+
+if [ $choice = "A" ] || [ $choice = "a" ]
+then
+read -p "Enter the username " username
+read -p "Enter the user's home directory " homedirectory
+read -p "Enter default login shell " loginshell
+sudo useradd -d $homedirectory -m -s /bin/$loginshell $username
+echo "You create a new user."
+elif [ $choice = "B" ] || [ $choice = "b" ]
+then
+read -p "Enter the username you wish to delete: " delUser
+sudo userdel -r $delUser
+echo "You deleted user $delUser"
+elif [ $choice = "C" ] || [ $choice = "c" ]
+then
+read -p "Enter the username: " userName
+read -p "Enter the group name: " groupName
+sudo usermod -G $groupName $userName
+echo "You changed supplementary group for the user account"
+elif [ $choice = "D" ] || [ $choice = "d" ]
+then
+read -p "Enter the user name: " user
+read -p "Enter the group name: " inigroup
+sudo usermod -g $inigroup $user
+echo "You changed the initial group"
+elif [ $choice = "E" ] || [ $choice = "e" ]
+then 
+read -p "Enter the user name: " username
+read -p "Enter the shell name: " shellname
+sudo chsh -s /bin/$shellname $username
+echo "You changed the default shell"
+elif [ $choice = "F" ] || [ $choice = "f" ]
+then
+read -p "Enter the username: " username
+read -p "Enter the expiration date: " edate
+sudo usermod -e $edate $username
+echo "You changed the expiration date"
+elif [ $choice = "Q" ] || [ $choice = "q" ]
+then
+choice="Q"
+fi
+sleep 3
+done
+
