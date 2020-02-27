@@ -1,0 +1,73 @@
+#!/bin/bash
+
+#Assignment name: Lab9
+#Student name: 
+#Lab section: 322
+#Name of the script file:sdbTool
+#Date: 2019-11-25
+#Description of the script file: The goal of this script is to create, format, mount, umount, delete, and view partitions all within a menu.
+
+function createapartition(){ 
+   sudo partition_create /dev/sdb $1 $2 &> /dev/null
+   echo "Partition has already been created."
+}
+
+function formatapartition (){
+    sudo mkfs -t ext4 /dev/sdb$1 &> /dev/null
+    echo "Partition has already been formatted."
+}
+
+function mountapartition(){
+    sudo mount -t ext4 /dev/sdb$1 $2 &> /dev/null
+    echo "Partition has been mounted."
+}
+
+function deleteapartition(){
+    sudo partition_delete /dev/sdb $1 &> /dev/null
+    echo "Partition has already been deleted."
+}
+
+function umountapartition(){
+     sudo umount $1 &> /dev/null
+    echo "Partition has already been umounted."
+}
+
+function viewpartitions(){
+       sudo fdisk -l
+      echo "The following are all of the partitions."
+}
+
+
+choice=n
+while [ "$choice" != "Q" ]
+do
+read -p "Please choose one of the numbers:
+1) Create Partition
+2) Format Partition
+3) Mount Partition
+4) Delete Partition
+5) Unmount Partition
+6) View Partitions
+Q) Quit " choice 
+
+echo "You enter $choice"
+
+
+case $choice in
+1) read id
+   read size 
+   createapartition $id $size;;
+2) read id
+   formatapartition $id;;
+3) read id
+   read size
+   mountapartition $id $size;;
+4) read id
+   deleteapartition $id;;
+5) read id
+   umountapartition $id;;
+6) viewpartitions;;
+Q) ;; 
+
+esac
+done
