@@ -1,0 +1,37 @@
+0# !/bin/bash
+
+#Assignment name: Lab7
+#Student name: Min Li
+#Student number: 040930563
+#Lab section: 320
+#Name of the script file: mygrade
+#Date: 2019-11-15
+#Description of the script file: Get the integer input from user and calculate, display the letter grade.
+
+read -p "Enter your Assignments mark (0 to 40): " assignment
+read -p "Enter your Test1 mark (0 to 15): " test1
+read -p "Enter your Test2 mark (1 to 15): " test2
+read -p "Enter your Final Exam mark (1 to 30): " finalExam
+
+grade=$(($assignment+$test1+$test2+$finalExam))
+
+case $grade in
+100 ) letterG="A+" ;;
+[9-9][0-9] ) letterG="A+" ;;
+[8][5-9] ) letterG="A" ;;
+[8][0-4] ) letterG="A-" ;;
+[7][7-9] ) letterG="B+" ;;
+[7][3-6] ) letterG="B" ;;
+[7][0-2] ) letterG="B-" ;;
+[6][7-9] ) letterG="C+" ;;
+[6][3-6] ) letterG="C" ;;
+[6][0-2] ) letterG="C-" ;;
+[5][7-9] ) letterG="D+" ;;
+[5][3-6] ) letterG="D" ;;
+[5][0-2] ) letterG="D-" ;;
+[0-9] | [1-4][0-9] ) letterG="F" ;;
+
+esac
+
+echo "Your final grade is " $letterG
+
